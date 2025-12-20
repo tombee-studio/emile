@@ -210,6 +210,13 @@ ExpressionStatementNode::compile(vector<MnemonicCode>& codes) {
 }
 
 void
+DefineFunctionNode::compile(vector<MnemonicCode>& codes) {
+  codes.push_back(MnemonicCode(Mnemonic::PUSH, Object::createNone()));
+  getBlock()->compile(codes);
+  codes.push_back(MnemonicCode(Mnemonic::EXIT, Object::createNone()));
+}
+
+void
 RootNode::compile(vector<MnemonicCode>& codes) {
   codes.push_back(MnemonicCode(Mnemonic::PUSH, Object::createNone()));
   for(auto statement: getStatemants()) {

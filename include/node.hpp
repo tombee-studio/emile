@@ -263,6 +263,28 @@ namespace Emile {
     virtual void compile(vector<MnemonicCode>& codes) override;
   };
 
+
+  class DefineFunctionNode: public StatementNode {
+    PRIVATE_PROPERTY(Object, Name, Object::createNone())
+    PRIVATE_PROPERTY(ArgumentNode *, Argument, NULL)
+    PRIVATE_PROPERTY(StatementNode*, Block, NULL)
+  public:
+    DefineFunctionNode(
+      Object name,
+      ArgumentNode *argument,
+      StatementNode *block) {
+        setName(name);
+        setArgument(argument);
+        setBlock(block);
+    }
+
+    virtual ~DefineFunctionNode() override {
+      StatementNode::~StatementNode();
+    }
+
+    virtual void compile(vector<MnemonicCode>& codes) override;
+  };
+
   class RootNode: public Node {
     GETTER(vector<StatementNode *>,
       Statemants,

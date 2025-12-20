@@ -17,6 +17,25 @@ Parser::parse() {
   }
 }
 
+StatementNode*
+Parser::parseDefineFunctionStatement() {
+  if(!isValidAt(getIndex(), Type::KW_FUNC)) {
+    return NULL;
+  }
+  consumeNext();
+
+  if(!isValidAt(getIndex(), Type::ID)) {
+    return NULL;
+  }
+  Token token = consumeNext();
+
+  auto name = Object::createValueFrom(token);
+  auto argument = parseArgumentNode();
+  auto block = parseBlock();
+
+  return new DefineFunctionNode(name, argument, block);
+}
+
 StatementNode* 
 Parser::parseStatement() {
   StatementNode *statement = NULL;
