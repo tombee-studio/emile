@@ -265,7 +265,7 @@ namespace Emile {
 
 
   class DefineFunctionNode: public StatementNode {
-    PRIVATE_PROPERTY(Object, Name, Object::createNone())
+    GETTER(Object, Name, Object::createNone())
     PRIVATE_PROPERTY(ArgumentNode *, Argument, NULL)
     PRIVATE_PROPERTY(StatementNode*, Block, NULL)
   public:

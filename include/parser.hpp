@@ -21,7 +21,8 @@ namespace Emile {
     Token consumeValue();
 
     RootNode* parseRoot();
-    StatementNode* parseDefineFunctionStatement();
+    DefineFunctionNode* parseDefineFunctionStatement();
+
     StatementNode* parseStatement();
     StatementNode* parseBlock();
     StatementNode* parseIfStatement();

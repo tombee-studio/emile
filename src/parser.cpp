@@ -6,7 +6,7 @@ Parser::parse() {
   try {
     int index = 0;
     auto root = new RootNode();
-    StatementNode *statement;
+    DefineFunctionNode *statement;
     while((statement = parseDefineFunctionStatement()) != NULL) {
       root->getStatemants().push_back(statement);
     }
@@ -17,7 +17,7 @@ Parser::parse() {
   }
 }
 
-StatementNode*
+DefineFunctionNode*
 Parser::parseDefineFunctionStatement() {
   if(!isValidAt(getIndex(), Type::KW_FUNC)) {
     return NULL;
