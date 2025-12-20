@@ -66,12 +66,12 @@ testInterpreterRun(string source, Object target) {
   auto tokens = Lexer(source).lex();
   Parser parser(tokens);
   auto root = parser.parse();
-  vector<MnemonicCode> codes;
-  root->compile(codes);
+  Environment env;
+  root->compile(env);
   
   Interpreter interpreter;
   interpreter.getFunctionTable()["test"] = test;
-  interpreter.setMnemonics(codes);
+  interpreter.setMnemonics(env.getCodes());
   interpreter.run();
   assert(interpreter.getReturnValue().eq(target).getIntValue() == 1);
   cout << "OK! " << source << endl;

@@ -3,6 +3,7 @@
 #include <lexer.hpp>
 #include <value_object.hpp>
 #include <mnemonic_code.hpp>
+#include <environment.hpp>
 #include <vector>
 #include <map>
 #include <queue>
@@ -11,15 +12,15 @@ using namespace std;
 namespace Emile {
   class Node {
   public:
-    virtual void compile(vector<MnemonicCode>&) {}
+    virtual void compile(Environment&) {}
   };
 
   class ExpressionNode: public Node {
   public:
     virtual ~ExpressionNode() {}
 
-    virtual void compile(vector<MnemonicCode>&) = 0;
-    virtual void lcompile(vector<MnemonicCode>& codes) = 0;
+    virtual void compile(Environment&) = 0;
+    virtual void lcompile(Environment& codes) = 0;
   };
 
   class BinaryExpressionNode: public ExpressionNode {
@@ -48,8 +49,8 @@ namespace Emile {
       BinaryExpressionNode::~BinaryExpressionNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class ComparisonExpressionNode: public BinaryExpressionNode {
@@ -64,8 +65,8 @@ namespace Emile {
       BinaryExpressionNode::~BinaryExpressionNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class AddExpressionNode: public BinaryExpressionNode {
@@ -80,8 +81,8 @@ namespace Emile {
       BinaryExpressionNode::~BinaryExpressionNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class MulExpressionNode: public BinaryExpressionNode {
@@ -96,8 +97,8 @@ namespace Emile {
       BinaryExpressionNode::~BinaryExpressionNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class TermNode: public ExpressionNode {
@@ -111,8 +112,8 @@ namespace Emile {
 
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class ArgumentNode: public Node {
@@ -122,7 +123,7 @@ namespace Emile {
       setArguments(arguments);
     }
     
-    virtual void compile(vector<MnemonicCode>&) override;
+    virtual void compile(Environment&) override;
 
     int size() {
       return getArguments().size();
@@ -138,8 +139,8 @@ namespace Emile {
       setArgument(argument);
     }
 
-    virtual void compile(vector<MnemonicCode>&) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment&) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class SubscriptOperatorNode: Node {
@@ -149,7 +150,7 @@ namespace Emile {
       setSubscripts(subscripts);
     }
 
-    virtual void compile(vector<MnemonicCode>&) override;
+    virtual void compile(Environment&) override;
   };
 
   class VariableNode: public ExpressionNode {
@@ -166,15 +167,15 @@ namespace Emile {
 
     ~VariableNode() override {}
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
-    virtual void lcompile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
+    virtual void lcompile(Environment& codes) override;
   };
 
   class StatementNode: public Node {
   public:
     virtual ~StatementNode() {}
 
-    virtual void compile(vector<MnemonicCode>& codes) = 0;
+    virtual void compile(Environment& codes) = 0;
   };
 
   class WhileStatementNode: public StatementNode {
@@ -192,7 +193,7 @@ namespace Emile {
       StatementNode::~StatementNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
   class BlockStatementNode: public StatementNode {
@@ -207,7 +208,7 @@ namespace Emile {
       StatementNode::~StatementNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
   class ElifStatementNode: public StatementNode {
@@ -225,7 +226,7 @@ namespace Emile {
       StatementNode::~StatementNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
   class IfStatementNode: public StatementNode {
@@ -248,7 +249,7 @@ namespace Emile {
       StatementNode::~StatementNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
   class ExpressionStatementNode: public StatementNode {
@@ -260,7 +261,7 @@ namespace Emile {
       delete _Expr;
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
 
@@ -282,7 +283,7 @@ namespace Emile {
       StatementNode::~StatementNode();
     }
 
-    virtual void compile(vector<MnemonicCode>& codes) override;
+    virtual void compile(Environment& codes) override;
   };
 
   class RootNode: public Node {
@@ -296,6 +297,6 @@ namespace Emile {
       }
     }
 
-    virtual void compile(vector<MnemonicCode>&) override;
+    virtual void compile(Environment&) override;
   };
 }
