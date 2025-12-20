@@ -9,9 +9,12 @@ run: $(DYLIB)
 	g++ -DDEBUG $(LIB) -I./include -o a.out -std=c++14 -O3 main.cpp $(DYLIB)
 	./a.out
 
+cli: $(DYLIB) 
+	g++ $(DYLIB) cli/main.cpp -std=c++14 -o dist/emile -g -pthread -lgtest_main -lgtest -I./include
+
 main: $(DYLIB)
 	g++ $(DYLIB) main.cpp -std=c++14 -o a.out -g -pthread -lgtest_main -lgtest -I./include
-	./a.out "a = 0;"
+	./a.out "func main(): a = 0; end"
 
 test: $(DYLIB)
 	g++ $(DYLIB) test/test.cpp -std=c++14 -o test.out -g -pthread -lgtest_main -lgtest -I./include
@@ -30,3 +33,4 @@ clean:
 	rm -rf obj lib a.out a.out.* test.out test.out.*
 	mkdir obj
 	mkdir lib
+	mkdir dist

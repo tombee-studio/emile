@@ -33,7 +33,21 @@ main(int argc, char *argv[]) {
   interpreter.getFunctionTable()["println"] = println;
   interpreter.getFunctionTable()["clear"] = clear;
 
-  string source(argv[1]);
+  std::ifstream ifs(argv[1]); // example.txt を読み込みモードで開く
+  std::string source;
+  std::string line;
+  // ファイルが開けたかチェック
+  if (!ifs) {
+      std::cerr << "ファイルを開けませんでした。" << std::endl;
+      return 1; // エラー終了
+  }
+
+  // ファイルが終端に達するまで1行ずつ読み込む
+  while (std::getline(ifs, line)) {
+    source += line;
+  }
+
+  ifs.close();
 
   Emile::Environment env;
   Emile::Parser(

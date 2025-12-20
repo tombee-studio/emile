@@ -6,15 +6,34 @@ Parser::parse() {
   try {
     int index = 0;
     auto root = new RootNode();
-    StatementNode *statement;
-    while((statement = parseStatement()) != NULL) {
-      root->getStatemants().push_back(statement);
+    DefineFunctionNode *statement;
+    while((statement = parseDefineFunctionStatement()) != NULL) {
+      root->getDefineFunctions().push_back(statement);
     }
     return root;
   } catch(runtime_error& er) {
     cerr << er.what() << endl;
     exit(-1);
   }
+}
+
+DefineFunctionNode*
+Parser::parseDefineFunctionStatement() {
+  if(!isValidAt(getIndex(), Type::KW_FUNC)) {
+    return NULL;
+  }
+  consumeNext();
+
+  if(!isValidAt(getIndex(), Type::ID)) {
+    return NULL;
+  }
+  Token token = consumeNext();
+
+  auto name = Object::createValueFrom(token);
+  auto argument = parseArgumentNode();
+  auto block = parseBlock();
+
+  return new DefineFunctionNode(name, argument, block);
 }
 
 StatementNode* 

@@ -5,3 +5,5 @@ lib/
 test.out.*
 a.out.*
 .DS_Store
+*.dSYM
+dist/
