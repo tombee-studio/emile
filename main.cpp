@@ -35,11 +35,11 @@ main(int argc, char *argv[]) {
 
   string source(argv[1]);
 
-  vector<Emile::MnemonicCode> codes;
+  Emile::Environment env;
   Emile::Parser(
-    Emile::Lexer(source).lex()).parse()->compile(codes);
+    Emile::Lexer(source).lex()).parse()->compile(env);
 
-  interpreter.setMnemonics(codes);
+  interpreter.setMnemonics(env.getFunctions()["main"]);
   interpreter.run();
 
   return interpreter.getReturnValue().getIntValue();

@@ -11,7 +11,7 @@ run: $(DYLIB)
 
 main: $(DYLIB)
 	g++ $(DYLIB) main.cpp -std=c++14 -o a.out -g -pthread -lgtest_main -lgtest -I./include
-	./a.out "a = 0;"
+	./a.out "func main(): a = 0; end"
 
 test: $(DYLIB)
 	g++ $(DYLIB) test/test.cpp -std=c++14 -o test.out -g -pthread -lgtest_main -lgtest -I./include
