@@ -288,29 +288,30 @@ main() {
   testParser("3 * 2 / 5 % 2 + 1 - 2;");
   testParser("3 * 2 == 36 / 6;");
   testParser("a = 2; if a == 2: a = 3; else: a = 4; end a;");
+  testParser("func main(): a = 2; if a == 2: a = 3; else: a = 4; end a; end");
 
-  testInterpreterRun("3;", Object::createIntValue(3));
-  testInterpreterRun("(1);", Object::createIntValue(1));
-  testInterpreterRun("3 * 2;", Object::createIntValue(6));
-  testInterpreterRun("15 / 5;", Object::createIntValue(3));
-  testInterpreterRun("15 / 5 + 3;", Object::createIntValue(6));
-  testInterpreterRun("3 % 2;", Object::createIntValue(1));
-  testInterpreterRun("3 % 2 + 1;", Object::createIntValue(2));
-  testInterpreterRun("3 * 2 == 36 / 6;", Object::createIntValue(1));
-  testInterpreterRun("a = 3; a;", Object::createIntValue(3));
-  testInterpreterRun("test(2);", Object::createIntValue(6));
-  testInterpreterRun("a = 3; test(a + 1);", Object::createIntValue(12));
+  testInterpreterRun("func main(): 3; end", Object::createIntValue(3));
+  testInterpreterRun("func main(): (1); end", Object::createIntValue(1));
+  testInterpreterRun("func main(): 3 * 2; end", Object::createIntValue(6));
+  testInterpreterRun("func main(): 15 / 5; end", Object::createIntValue(3));
+  testInterpreterRun("func main(): 15 / 5 + 3; end", Object::createIntValue(6));
+  testInterpreterRun("func main(): 3 % 2; end", Object::createIntValue(1));
+  testInterpreterRun("func main(): 3 % 2 + 1; end", Object::createIntValue(2));
+  testInterpreterRun("func main(): 3 * 2 == 36 / 6; end", Object::createIntValue(1));
+  testInterpreterRun("func main(): a = 3; a; end", Object::createIntValue(3));
+  testInterpreterRun("func main(): test(2); end", Object::createIntValue(6));
+  testInterpreterRun("func main(): a = 3; test(a + 1); end", Object::createIntValue(12));
   testInterpreterRun(
-    "a = 2; if a == 2: a = 3; else: a = 1; end a;", 
+    "func main(): a = 2; if a == 2: a = 3; else: a = 1; end a; end", 
     Object::createIntValue(3));
   testInterpreterRun(
-    "a = 1; if a == 1: b = 4; b = 7; elif a == 3: b = 5; else: b = 6; end b;", 
+    "func main(): a = 1; if a == 1: b = 4; b = 7; elif a == 3: b = 5; else: b = 6; end b; end", 
     Object::createIntValue(7));
   testInterpreterRun(
-    "a = 1; while a < 5: a = a + 1; end a;", 
+    "func main(): a = 1; while a < 5: a = a + 1; end a; end", 
     Object::createIntValue(5));
   testInterpreterRun(
-    "a[\"テスト\"] = 5; a[\"テスト\"];", 
+    "func main(): a[\"テスト\"] = 5; a[\"テスト\"]; end", 
     Object::createIntValue(5));
 
   return 0;

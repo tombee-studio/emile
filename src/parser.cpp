@@ -7,7 +7,7 @@ Parser::parse() {
     int index = 0;
     auto root = new RootNode();
     StatementNode *statement;
-    while((statement = parseStatement()) != NULL) {
+    while((statement = parseDefineFunctionStatement()) != NULL) {
       root->getStatemants().push_back(statement);
     }
     return root;
