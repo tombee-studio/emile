@@ -5,6 +5,11 @@ INC=./include
 LIB:=-pthread
 DYLIB:=./lib/libemile.dylib
 
+install:
+	make clean
+	make cli
+	sudo cp dist/emile /usr/local/bin/
+
 run: $(DYLIB)
 	g++ -DDEBUG $(LIB) -I./include -o a.out -std=c++14 -O3 main.cpp $(DYLIB)
 	./a.out
@@ -30,7 +35,7 @@ $(OBJDIRS):
 	mkdir -p $@
 
 clean:
-	rm -rf obj lib a.out a.out.* test.out test.out.*
+	rm -rf dist/ obj lib a.out a.out.* test.out test.out.*
 	mkdir obj
 	mkdir lib
 	mkdir dist
