@@ -109,6 +109,7 @@ main() {
   testToken("true", Type::KW_TRUE);
   testToken("false", Type::KW_FALSE);
   testToken("while", Type::KW_WHILE);
+  testToken("func", Type::KW_FUNC);
 
   testLex("abc abc abc", { Type::ID, Type::ID, Type::ID, Type::NONE });
   testLex("abc 1000 1234567890.0123456789", { Type::ID, Type::INT, Type::DOUBLE, Type::NONE });

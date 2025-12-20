@@ -36,6 +36,7 @@ namespace Emile {
     KW_ELSE,
     KW_WHILE,
     KW_END,
+    KW_FUNC,
     NONE
   };
 };
