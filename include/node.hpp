@@ -287,12 +287,12 @@ namespace Emile {
   };
 
   class RootNode: public Node {
-    GETTER(vector<StatementNode *>,
-      Statemants,
-      vector<StatementNode *>())
+    GETTER(vector<DefineFunctionNode *>,
+      DefineFunctions,
+      vector<DefineFunctionNode *>())
   public:
     ~RootNode() {
-      for(auto node: _Statemants) {
+      for(auto node: _DefineFunctions) {
         delete node;
       }
     }

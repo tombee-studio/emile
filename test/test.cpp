@@ -71,7 +71,7 @@ testInterpreterRun(string source, Object target) {
   
   Interpreter interpreter;
   interpreter.getFunctionTable()["test"] = test;
-  interpreter.setMnemonics(env.getCodes());
+  interpreter.setMnemonics(env.getFunctions()["main"]);
   interpreter.run();
   assert(interpreter.getReturnValue().eq(target).getIntValue() == 1);
   cout << "OK! " << source << endl;

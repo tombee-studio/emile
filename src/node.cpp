@@ -211,6 +211,7 @@ ExpressionStatementNode::compile(Environment& codes) {
 
 void
 DefineFunctionNode::compile(Environment& codes) {
+  codes.setCurrentFunctionName(getName());
   codes.addMnemonicCode(MnemonicCode(Mnemonic::PUSH, Object::createNone()));
   getBlock()->compile(codes);
   codes.addMnemonicCode(MnemonicCode(Mnemonic::EXIT, Object::createNone()));
@@ -219,7 +220,7 @@ DefineFunctionNode::compile(Environment& codes) {
 void
 RootNode::compile(Environment& codes) {
   codes.addMnemonicCode(MnemonicCode(Mnemonic::PUSH, Object::createNone()));
-  for(auto statement: getStatemants()) {
+  for(auto statement: getDefineFunctions()) {
     statement->compile(codes);
   }
   codes.addMnemonicCode(MnemonicCode(Mnemonic::EXIT, Object::createNone()));

@@ -3,15 +3,15 @@ using namespace Emile;
 
 void
 Environment::addMnemonicCode(MnemonicCode code) {
-  getCodes().push_back(code);
+  getFunctions()[getCurrentFunctionName().getId()].push_back(code);
 }
 
 int
 Environment::getMnemonicCodeSize() {
-  return getCodes().size();
+  return getFunctions()[getCurrentFunctionName().getId()].size();
 }
 
 void
 Environment::setMnemonicCode(int index, MnemonicCode code) {
-  getCodes()[index] = code;
+  getFunctions()[getCurrentFunctionName().getId()][index] = code;
 }
