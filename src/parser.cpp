@@ -8,7 +8,7 @@ Parser::parse() {
     auto root = new RootNode();
     DefineFunctionNode *statement;
     while((statement = parseDefineFunctionStatement()) != NULL) {
-      root->getStatemants().push_back(statement);
+      root->getDefineFunctions().push_back(statement);
     }
     return root;
   } catch(runtime_error& er) {

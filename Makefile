@@ -9,6 +9,9 @@ run: $(DYLIB)
 	g++ -DDEBUG $(LIB) -I./include -o a.out -std=c++14 -O3 main.cpp $(DYLIB)
 	./a.out
 
+cli: $(DYLIB)
+	g++ $(DYLIB) cli/main.cpp -std=c++14 -o dist/emile_cli -g -pthread -lgtest_main -lgtest -I./include
+
 main: $(DYLIB)
 	g++ $(DYLIB) main.cpp -std=c++14 -o a.out -g -pthread -lgtest_main -lgtest -I./include
 	./a.out "func main(): a = 0; end"
